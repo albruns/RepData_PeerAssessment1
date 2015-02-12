@@ -9,8 +9,18 @@ output:
 ## Loading and preprocessing the data
 
 ### Package requiered: *base*
-```{r echo="true"}
+
+```r
 DT<-read.csv("activity.csv", header=T)
+```
+
+```
+## Warning in file(file, "rt"): cannot open file 'activity.csv': No such file
+## or directory
+```
+
+```
+## Error in file(file, "rt"): cannot open the connection
 ```
 
 
@@ -18,49 +28,59 @@ DT<-read.csv("activity.csv", header=T)
 
 ### Histogram total number of steps:
 
-```{r echo="true"}
+
+```r
 steps<-by(DT$steps, DT$date, function(x) sum(x))
 hist(steps)
-
 ```
 
-### Mean number of steps per day : `r mean(steps, na.rm="true")`
-### Median number of steps per day `r median(steps, na.rm="true")`
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
+
+### Mean number of steps per day : 1.0766189 &times; 10<sup>4</sup>
+### Median number of steps per day 10765
 
 ## What is the average daily activity pattern?
 
-```{r echo="true"}
+
+```r
 dailyavg<-by(DT$steps, DT$interval, function(x) mean(x, na.rm="true"))
 plot(dailyavg, type="l", xlab="interval", ylab="avg steps")
 ```
 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
-### Maximum interval: `r which.max(dailyavg)*5` th minute
+
+### Maximum interval: 520 th minute
 
 ## Imputing missing values
 
 ### NA values are imputed by the mean across all days
 
-```{r echo="true"}
+
+```r
 nas<-is.na(DT$steps)
 DTimp<-DT
 DTimp[nas,"steps"]<-mean(steps, na.rm="true")
 ```
 ### Calculate histogram, mean and median with imputed dataset
 
-```{r echo="true"}
+
+```r
 steps2<-by(DTimp$steps, DTimp$date, function(x) sum(x))
 hist(steps2)
 ```
 
-### Mean number of steps per day : `r mean(steps2, na.rm="true")` Difference: `r mean(steps2, na.rm="true")-mean(steps, na.rm="true")`
-### Median number of steps per day: `r median(steps2)` Difference: `r median(steps2, na.rm="true")-mean(steps, na.rm="true")`
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
+
+### Mean number of steps per day : 4.1599847 &times; 10<sup>5</sup> Difference: 4.0523228 &times; 10<sup>5</sup>
+### Median number of steps per day: 1.1458 &times; 10<sup>4</sup> Difference: 691.8113208
 
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-```{r echo="true"}
+
+```r
 DTweekdays<-weekdays(as.Date(DT$date))
 DTweekdays[DTweekdays=="lunes"]<-1
 DTweekdays[DTweekdays=="martes"]<-1
@@ -76,7 +96,52 @@ weekend<-DT1[DT1$DTweekdays==0,]
 weekendavg<-by(weekend$steps, weekend$interval, function(x) mean(x, na.rm="true"))
 par(mfrow=c(2,1)) 
 plot(weekdayavg, type="l", xlab="interval weekday", ylab="avg steps", main="weekdays")
+```
+
+```
+## Warning in min(x): no non-missing arguments to min; returning Inf
+```
+
+```
+## Warning in max(x): no non-missing arguments to max; returning -Inf
+```
+
+```
+## Warning in min(x): no non-missing arguments to min; returning Inf
+```
+
+```
+## Warning in max(x): no non-missing arguments to max; returning -Inf
+```
+
+```
+## Error in plot.window(...): endliche 'xlim' Werte nötig
+```
+
+```r
 plot(weekendavg, type="l", xlab="interval weekend", ylab="avg steps", main="weekend")
 ```
+
+```
+## Warning in min(x): no non-missing arguments to min; returning Inf
+```
+
+```
+## Warning in max(x): no non-missing arguments to max; returning -Inf
+```
+
+```
+## Warning in min(x): no non-missing arguments to min; returning Inf
+```
+
+```
+## Warning in max(x): no non-missing arguments to max; returning -Inf
+```
+
+```
+## Error in plot.window(...): endliche 'xlim' Werte nötig
+```
+
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
 
 ###Yes there are differences
