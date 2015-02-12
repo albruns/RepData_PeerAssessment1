@@ -62,13 +62,13 @@ hist(steps2)
 
 ```{r echo="true"}
 DTweekdays<-weekdays(as.Date(DT$date))
-DTweekdays[DTweekdays=="lunes"]<-1
-DTweekdays[DTweekdays=="martes"]<-1
-DTweekdays[DTweekdays=="miercoles"]<-1
-DTweekdays[DTweekdays=="jueves"]<-1
-DTweekdays[DTweekdays=="viernes"]<-1
-DTweekdays[DTweekdays=="sabado"]<-0
-DTweekdays[DTweekdays=="domingo"]<-0
+DTweekdays[DTweekdays=="Montag"]<-1
+DTweekdays[DTweekdays=="Dienstag"]<-1
+DTweekdays[DTweekdays=="Mittwoch"]<-1
+DTweekdays[DTweekdays=="Donnerstag"]<-1
+DTweekdays[DTweekdays=="Freitag"]<-1
+DTweekdays[DTweekdays=="Samstag"]<-0
+DTweekdays[DTweekdays=="Sonntag"]<-0
 DT1<-cbind(DT,DTweekdays)
 weekday<-DT1[DT1$DTweekdays==1,]
 weekdayavg<-by(weekday$steps, weekday$interval, function(x) mean(x, na.rm="true"))

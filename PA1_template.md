@@ -14,15 +14,6 @@ output:
 DT<-read.csv("activity.csv", header=T)
 ```
 
-```
-## Warning in file(file, "rt"): cannot open file 'activity.csv': No such file
-## or directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
-```
-
 
 ## What is mean total number of steps taken per day?
 
@@ -82,13 +73,13 @@ hist(steps2)
 
 ```r
 DTweekdays<-weekdays(as.Date(DT$date))
-DTweekdays[DTweekdays=="lunes"]<-1
-DTweekdays[DTweekdays=="martes"]<-1
-DTweekdays[DTweekdays=="miercoles"]<-1
-DTweekdays[DTweekdays=="jueves"]<-1
-DTweekdays[DTweekdays=="viernes"]<-1
-DTweekdays[DTweekdays=="sabado"]<-0
-DTweekdays[DTweekdays=="domingo"]<-0
+DTweekdays[DTweekdays=="Montag"]<-1
+DTweekdays[DTweekdays=="Dienstag"]<-1
+DTweekdays[DTweekdays=="Mittwoch"]<-1
+DTweekdays[DTweekdays=="Donnerstag"]<-1
+DTweekdays[DTweekdays=="Freitag"]<-1
+DTweekdays[DTweekdays=="Samstag"]<-0
+DTweekdays[DTweekdays=="Sonntag"]<-0
 DT1<-cbind(DT,DTweekdays)
 weekday<-DT1[DT1$DTweekdays==1,]
 weekdayavg<-by(weekday$steps, weekday$interval, function(x) mean(x, na.rm="true"))
@@ -96,50 +87,7 @@ weekend<-DT1[DT1$DTweekdays==0,]
 weekendavg<-by(weekend$steps, weekend$interval, function(x) mean(x, na.rm="true"))
 par(mfrow=c(2,1)) 
 plot(weekdayavg, type="l", xlab="interval weekday", ylab="avg steps", main="weekdays")
-```
-
-```
-## Warning in min(x): no non-missing arguments to min; returning Inf
-```
-
-```
-## Warning in max(x): no non-missing arguments to max; returning -Inf
-```
-
-```
-## Warning in min(x): no non-missing arguments to min; returning Inf
-```
-
-```
-## Warning in max(x): no non-missing arguments to max; returning -Inf
-```
-
-```
-## Error in plot.window(...): endliche 'xlim' Werte nötig
-```
-
-```r
 plot(weekendavg, type="l", xlab="interval weekend", ylab="avg steps", main="weekend")
-```
-
-```
-## Warning in min(x): no non-missing arguments to min; returning Inf
-```
-
-```
-## Warning in max(x): no non-missing arguments to max; returning -Inf
-```
-
-```
-## Warning in min(x): no non-missing arguments to min; returning Inf
-```
-
-```
-## Warning in max(x): no non-missing arguments to max; returning -Inf
-```
-
-```
-## Error in plot.window(...): endliche 'xlim' Werte nötig
 ```
 
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
